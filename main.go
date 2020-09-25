@@ -59,7 +59,11 @@ func csv_to_json(initid *C.UDF_INIT, args *C.UDF_ARGS, result *C.char, length *u
 		a[i] = C.GoStringN(argsArg, C.int(argsLengths[i]))
 	}
 
-	stringSlices, err := csv.NewReader(strings.NewReader(a[0])).ReadAll()
+	csvr := csv.NewReader(strings.NewReader(a[0]))
+	csvr.FieldsPerRecord = -1
+	csvr.LazyQuotes = true
+	csvr.TrimLeadingSpace = true
+	stringSlices, err := csvr.ReadAll()
 	if err != nil {
 		l.Println(err)
 		return nil
@@ -155,7 +159,11 @@ func csv_to_json_no_headers(initid *C.UDF_INIT, args *C.UDF_ARGS, result *C.char
 		a[i] = C.GoStringN(argsArg, C.int(argsLengths[i]))
 	}
 
-	stringSlices, err := csv.NewReader(strings.NewReader(a[0])).ReadAll()
+	csvr := csv.NewReader(strings.NewReader(a[0]))
+	csvr.FieldsPerRecord = -1
+	csvr.LazyQuotes = true
+	csvr.TrimLeadingSpace = true
+	stringSlices, err := csvr.ReadAll()
 	if err != nil {
 		l.Println(err)
 		return nil

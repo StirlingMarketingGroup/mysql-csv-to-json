@@ -178,6 +178,7 @@ then replace `/usr/lib/mysql/plugin` below with your MySQL plugin directory.
 cd ~ # or wherever you store your git projects
 git clone https://github.com/StirlingMarketingGroup/mysql-csv-to-json.git
 cd mysql-csv-to-json
+go get -d ./...
 go build -buildmode=c-shared -o csv_to_json.so
 sudo cp csv_to_json.so /usr/lib/mysql/plugin/ # replace plugin dir here if needed
 ```
